@@ -1,0 +1,24 @@
+Refer to the film, actor, and film_actor tables of the Sakila database. The tables in this lab have the same columns and data types but fewer rows.
+
+Write a query that:
+
+Computes the average length of all films that each actor appears in.
+Rounds average length to the nearest minute and renames the result column "average".
+Displays last name, first name, and average, in that order, for each actor.
+Sorts the result in descending order by average, then ascending order by last name.
+The query should exclude films with no actors and actors that do not appear in films.
+
+Hint: Use the ROUND() and AVG() functions.
+
+
+SELECT a.last_name, a.first_name, ROUND(AVG(f.length)) AS 'average'
+
+FROM film f
+
+INNER JOIN film_actor fa ON f.film_id = fa.film_id
+
+INNER JOIN actor a ON a.actor_id = fa.actor_id
+
+GROUP BY a.last_name, a.first_name
+
+ORDER BY average DESC, last_name ASC;
