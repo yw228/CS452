@@ -1,0 +1,37 @@
+-- Your CREATE TABLE statements go here
+CREATE TABLE person(
+person_id SMALLINT UNSIGNED NOT NULL,
+first_name VARCHAR(20) NOT NULL,
+last_name VARCHAR(20) NOT NULL,
+email VARCHAR(20) NOT NULL,
+address_id SMALLINT UNSIGNED NOT NULL,
+active VARCHAR(20) NOT NULL,
+last_update TIMESTAMP NOT NULL,
+PRIMARY KEY (person_id),
+CONSTRAINT fk_person_address FOREIGN KEY (address_id) REFERENCES
+address(address_id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+-- Creating an entity named customer which is a subtype of person entity
+CREATE TABLE customer(
+person_id SMALLINT UNSIGNED NOT NULL,
+create_date TIMESTAMP NOT NULL,
+PRIMARY KEY (person_id),
+CONSTRAINT fk_customer_person FOREIGN KEY (person_id) REFERENCES
+person(person_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Creating an entity named staff which is a subtype of person entity
+CREATE TABLE staff(
+person_id SMALLINT UNSIGNED NOT NULL,
+picture BLOB NOT NULL,
+username VARCHAR(20) NOT NULL,
+password VARCHAR(20) NOT NULL,
+store_id TINYINT UNSIGNED NOT NULL,
+PRIMARY KEY (person_id),
+CONSTRAINT fk_staff_person FOREIGN KEY (person_id) REFERENCES
+person(person_id) ON DELETE CASCADE ON UPDATE CASCADE,
+
+CONSTRAINT fk_staff_store FOREIGN KEY (store_id) REFERENCES
+store(store_id) ON DELETE RESTRICT ON UPDATE RESTRICT
+);

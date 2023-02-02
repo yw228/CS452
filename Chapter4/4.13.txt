@@ -1,0 +1,36 @@
+-- Your CREATE TABLE and ALTER TABLE statements go here
+CREATE TABLE phone (
+phone_id int NOT NULL,
+country_code int NOT NULL,
+phone_number int NOT NULL,
+phone_type VARCHAR(12) CHECK (phone_type IN ('Home','Mobile','Other')),
+PRIMARY KEY (phone_id)
+);
+
+-- Customer
+ALTER TABLE customer 
+  ADD phone_id INT,
+  ADD FOREIGN KEY (phone_id) REFERENCES phone(phone_id)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
+  
+-- Staff
+ALTER TABLE staff
+   ADD phone_id INT, 
+   ADD FOREIGN KEY (phone_id) REFERENCES phone (phone_id)
+   ON DELETE SET NULL
+   ON UPDATE CASCADE;
+   
+   
+-- Staff
+ALTER TABLE store
+   ADD phone_id INT, 
+   ADD FOREIGN KEY (phone_id) REFERENCES phone (phone_id)
+   ON DELETE SET NULL
+   ON UPDATE CASCADE;
+   
+-- Remove the existing phone column from the Sakila address table
+ALTER TABLE address 
+   DROP COLUMN phone;
+   
+   
