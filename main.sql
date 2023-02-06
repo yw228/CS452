@@ -72,19 +72,26 @@ select * from TestAssignQ1;
 -- List employees by name and their department names sorted by employee name
 CREATE table TestAssignQ2 as
   select E.name as Employee , D.name as Department
-  from employee E join department D
-  on E.id = D.id
+  
+  from employee E join link L
+  on E.id = L.employee_id
+  join department D 
+  on D.id = L.department_id
   order by E.name;
 
 select * from TestAssignQ2;
 
 
 
+
 -- List employees of CS
 CREATE table TestAssignQ3 as
   select E.name as Employee, D.name as Department
-  from employee E join department D
-  on E.id = D.id
+  
+  from employee E join link L
+  on E.id = L.employee_id
+  join department D 
+  on D.id = L.department_id
   where D.name = "CS"
   order by E.name;
 
@@ -98,19 +105,23 @@ select * from TestAssignQ3;
   
 CREATE table TestAssignQ4 as
   select D.name as Department ,E.name as Employee
-  from employee E join department D
-  on E.id = D.id
+  
+  from employee E join link L
+  on E.id = L.employee_id
+  join department D 
+  on D.id = L.department_id
   where E.name = "Quinn Snell"
   order by E.name;
 select * from TestAssignQ4;
 
 
 -- List people that don't belong to a department
+
 CREATE table TestAssignQ5 as
   select E.name as Employee_With_No_Department
-  from employee E FULL OUTER JOIN department D
-  on E.id = D.id
-  where D.id is null
-  order by E.name;
+  from employee E FULL OUTER join link L
+  on E.id = L.employee_id
+  FULL OUTER join Department D 
+  on D.id = L.department_id
+WHERE D.id is null;
 select * from TestAssignQ5;
-
