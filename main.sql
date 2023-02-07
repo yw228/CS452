@@ -104,19 +104,19 @@ select * from TestAssignQ3;
 -- List departments Quinn belongs to
   
 CREATE table TestAssignQ4 as
-  select D.name as Department ,E.name as Employee
+  select D.name as Department,E.name as Employee
   
   from employee E join link L
   on E.id = L.employee_id
   join department D 
   on D.id = L.department_id
   where E.name = "Quinn Snell"
-  order by E.name;
+  order by D.name;
 select * from TestAssignQ4;
 
 
 -- List people that don't belong to a department
-
+/* solution 1
 CREATE table TestAssignQ5 as
   select E.name as Employee_With_No_Department
   from employee E FULL OUTER join link L
@@ -124,4 +124,16 @@ CREATE table TestAssignQ5 as
   FULL OUTER join Department D 
   on D.id = L.department_id
 WHERE D.id is null;
+select * from TestAssignQ5;
+*/ 
+-- solution 2
+CREATE table TestAssignQ5 as
+select 
+E.name AS Employee_With_No_Department
+from
+employee E
+where
+E.id NOT IN (select employee_id from link)
+order by 
+E.name;
 select * from TestAssignQ5;
