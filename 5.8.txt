@@ -1,0 +1,9 @@
+-- Your SQL statements go here
+EXPLAIN SELECT * FROM film WHERE title = 'ALONE TRIP';
+CREATE INDEX idx_title ON film(title);
+EXPLAIN SELECT * FROM film WHERE title = 'ALONE TRIP';
+EXPLAIN SELECT * FROM film WHERE title > 'ALONE TRIP';
+EXPLAIN SELECT rating, count(*) FROM film GROUP BY rating;
+CREATE INDEX idx_rating ON film(rating);
+EXPLAIN SELECT rating, count(*) FROM film GROUP BY rating;
+
